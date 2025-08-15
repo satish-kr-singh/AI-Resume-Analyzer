@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import "./App.css";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+
+
 export function App() {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -18,7 +21,7 @@ export function App() {
 
     try {
       setLoading(true);
-      const res = await axios.post('http://localhost:5000/api/analyze', formData);
+      const res = await axios.post(`${API_BASE_URL}/api/analyze`, formData);
       setResult(res.data);
     } catch (err) {
       console.error(err);
