@@ -2,6 +2,8 @@
 
 This is an AI-powered web application that allows users to upload a PDF resume and receive intelligent feedback using state-of-the-art language models from Hugging Face.
 
+Check it out here : https://ai-resume-analyzer-azure-two.vercel.app/
+
 ---
 
 ## 🚀 Features
