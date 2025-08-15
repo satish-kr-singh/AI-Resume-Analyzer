@@ -1,10 +1,12 @@
+// ResumeAnalyzer.js
 import React, { useState } from 'react';
 import axios from 'axios';
+import "./App.css";
 
-function App() {
+export function App() {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [feedback, setFeedback] = useState([]);
+  const [result, setResult] = useState([]);
 
   const handleChange = (e) => setFile(e.target.files[0]);
 
@@ -17,8 +19,7 @@ function App() {
     try {
       setLoading(true);
       const res = await axios.post('http://localhost:5000/api/analyze', formData);
-      console.log(res)
-      setFeedback(res.data.feedback);
+      setResult(res.data);
     } catch (err) {
       console.error(err);
       alert('Error uploading resume');
@@ -28,22 +29,38 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6 flex flex-col items-center">
-      <h1 className="text-3xl font-bold mb-4">🧠 AI Resume Analyzer</h1>
+    <div className="container">
+      <h1 className="title">AI Resume Analyzer</h1>
 
-      <input type="file" accept=".pdf" onChange={handleChange} className="mb-4" />
+      <input
+        type="file"
+        accept=".pdf,.txt"
+        onChange={handleChange}
+        className="file-input"
+      />
+
       <button
         onClick={handleUpload}
         disabled={loading}
-        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        className="analyze-btn"
       >
-        {loading ? 'Analyzing...' : 'Upload & Analyze'}
+        {loading ? "Analyzing..." : "Upload & Analyze"}
       </button>
 
-      {feedback && (
-        <div className="mt-6 w-full max-w-3xl bg-white p-4 rounded shadow text-sm whitespace-pre-wrap">
-          <h2 className="text-lg font-semibold mb-2">📋 AI Feedback:</h2>
-          {feedback[0]?.summary_text}
+      {result && (
+        <div className="result-card">
+          <h2>Summary</h2>
+          <p>{result.summary}</p>
+
+          <h2>Score</h2>
+          <p>{result.score}</p>
+
+          <h2>Feedback</h2>
+          <p>{result.feedback}</p>
+
+          <h2>Resume Stats</h2>
+          <p>Word Count: {result.wordCount}</p>
+          <p>Pages: {result.pageCount}</p>
         </div>
       )}
     </div>
