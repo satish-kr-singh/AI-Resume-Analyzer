@@ -16,7 +16,7 @@ This is an AI-powered web application that allows users to upload a PDF resume a
 
 ## 🛠 Tech Stack
 
-- **Frontend:** React, Tailwind CSS
+- **Frontend:** React
 - **Backend:** Node.js, Express.js
 - **AI Model:** Hugging Face (`facebook/bart-large-cnn`, or any summarization model)
 - **PDF Parsing:** `pdf-parse`
